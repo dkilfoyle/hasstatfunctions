@@ -16,6 +16,7 @@ const {
 } = require("./filters");
 const { kpiTimeframes } = require("./timeKPIs");
 const { kpiToHTML } = require("./kpiFormatters");
+const btoa = require("btoa");
 
 function countKPI(config) {
   if (

@@ -11,6 +11,7 @@ const {
 } = require("./filters");
 const { kpiToHTML, timeToHTML } = require("./kpiFormatters");
 const { differenceInMinutes } = require("date-fns");
+const btoa = require("btoa");
 
 function timeKPI(config) {
   if (

@@ -3,16 +3,16 @@
 var { subMonths } = require("date-fns");
 var { subYears } = require("date-fns");
 
-export function getFiscalQuarter(testDate) {
+function getFiscalQuarter(testDate) {
   return getFiscalYear(testDate) + "-" + getFiscalQuarterN(testDate);
 }
 
-export function getFiscalQuarterN(testDate) {
+function getFiscalQuarterN(testDate) {
   var q = [3, 4, 1, 2];
   return q[Math.floor(testDate.getMonth() / 3)];
 }
 
-export function getFiscalYear(testDate) {
+function getFiscalYear(testDate) {
   if (testDate.getMonth() > 5) {
     return (
       testDate
@@ -31,7 +31,7 @@ export function getFiscalYear(testDate) {
   }
 }
 
-export function getPriorMonthName(numMonths) {
+function getPriorMonthName(numMonths) {
   var now = new Date();
   var x = new Date(now.getFullYear(), now.getMonth() - numMonths, 1);
   return x.toLocaleString("en-nz", {
@@ -39,7 +39,7 @@ export function getPriorMonthName(numMonths) {
   });
 }
 
-export function getMonthYearName(testDate) {
+function getMonthYearName(testDate) {
   return (
     (testDate.getMonth() + 1).toString().padStart(2, "0") +
     "-" +
@@ -47,7 +47,7 @@ export function getMonthYearName(testDate) {
   );
 }
 
-export function getPriorFiscalQuarters(timeStep) {
+function getPriorFiscalQuarters(timeStep) {
   // timestep = 0 = current quarter only
   // timestep < 0 = single quarter n ago
   // timestep > 0 = back n quarters
@@ -78,7 +78,7 @@ export function getPriorFiscalQuarters(timeStep) {
   return quarters;
 }
 
-export function getPriorFiscalYears(timeStep) {
+function getPriorFiscalYears(timeStep) {
   // timestep = 0 = current year only
   // timestep < 0 = single year n ago
   // timestep > 0 = back n years
@@ -109,7 +109,7 @@ export function getPriorFiscalYears(timeStep) {
   return years;
 }
 
-export function getPriorCalendarYears(timeStep) {
+function getPriorCalendarYears(timeStep) {
   var today = new Date();
   var curYear = today.getFullYear();
   var years = [];
@@ -123,7 +123,7 @@ export function getPriorCalendarYears(timeStep) {
   return years;
 }
 
-export function getPriorMonths(timeStep) {
+function getPriorMonths(timeStep) {
   var months = [];
   var testDate;
   if (timeStep < 0) {
@@ -144,13 +144,13 @@ export function getPriorMonths(timeStep) {
   return months;
 }
 
-// export default {
-//   getPriorMonthName,
-//   getMonthYearName,
-//   getPriorFiscalYears,
-//   getPriorFiscalQuarters,
-//   getPriorCalendarYears,
-//   getPriorMonths,
-//   getFiscalYear,
-//   getFiscalQuarter
-// };
+module.exports = {
+  getPriorMonthName,
+  getMonthYearName,
+  getPriorFiscalYears,
+  getPriorFiscalQuarters,
+  getPriorCalendarYears,
+  getPriorMonths,
+  getFiscalYear,
+  getFiscalQuarter
+};

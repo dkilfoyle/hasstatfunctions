@@ -325,7 +325,7 @@ function countOvernight(patients) {
   }).map(kpi => kpi.n);
 }
 
-function weeklyReport(patients) {
+function weeklyReportData(patients) {
   let colors = colormap({
     colormap: "portland",
     nshades: 10,
@@ -351,7 +351,27 @@ function weeklyReport(patients) {
     .map(x => colors[Math.round(percentRank(div, x) * 10)])
     .reverse();
 
-  var config = function(x) {
+  return {
+    psi: {
+      eventsPerWeek: psi.slice(0,12),
+      color: psicolors[11]
+    },
+    ivt: {
+      eventsPerWeek: ivt.slice(0,12),
+      color: ivtcolors[11]
+    },
+    div: {
+      eventsPerWeek: div.slice(0,12),
+      color: divcolors[11]
+    }
+  }
+}
+
+function weeklyReport(patients) {
+  
+  const weeklyData = weeklyReportData(patients);
+
+  var chartConfig = function(x) {
     return {
       type: "sparkline",
       data: {
@@ -379,40 +399,40 @@ function weeklyReport(patients) {
 
   return {
     psi: {
-      data: psi.slice(0, 12),
+      data: weeklyData.psi.eventsPerWeek,
+      color: weeklyData.psi.color,
       graph:
         "https://quickchart.io/chart?encoding=base64&c=" +
         btoa(
-          JSON.stringify(config(psi.slice(0, 12), psicolors)).replace(
+          JSON.stringify(chartConfig(weeklyData.psi.eventsPerWeek)).replace(
             /"([^(")"]+)":/g,
             "$1:"
           )
-        ),
-      color: psicolors[11]
+        )
     },
     ivt: {
-      data: ivt.slice(0, 12),
+      data: weeklyData.ivt.eventsPerWeek,
+      color: weeklyData.ivt.color,
       graph:
         "https://quickchart.io/chart?encoding=base64&c=" +
         btoa(
-          JSON.stringify(config(ivt.slice(0, 12), ivtcolors)).replace(
+          JSON.stringify(chartConfig(weeklyData.ivt.eventsPerWeek)).replace(
             /"([^(")"]+)":/g,
             "$1:"
           )
-        ),
-      color: ivtcolors[11]
+        )
     },
     div: {
-      data: div.slice(0, 12),
+      data: weeklyData.div.eventsPerWeek,
+      color: weeklyData.div.color,
       graph:
         "https://quickchart.io/chart?encoding=base64&c=" +
         btoa(
-          JSON.stringify(config(div.slice(0, 12), divcolors)).replace(
+          JSON.stringify(chartConfig(weeklyData.div.eventsPerWeek)).replace(
             /"([^(")"]+)":/g,
             "$1:"
           )
-        ),
-      color: divcolors[11]
+        )
     }
   };
 }
@@ -554,6 +574,7 @@ function quarterCharts(patients) {
 
 module.exports = {
   weeklyReport,
+  weeklyReportData,
   countIVT,
   countPSI,
   countDiversion,

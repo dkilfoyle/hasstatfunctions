@@ -25,6 +25,7 @@ exports.door2RepatriationNoI = timeKPIs.door2RepatriationNoI;
 exports.quarterReport = timeKPIs.quarterReport;
 
 exports.weeklyReport = countKPIs.weeklyReport;
+exports.weeklyReportData = countKPIs.weeklyReportData;
 exports.quarterCharts = countKPIs.quarterCharts;
 exports.getEvtPerWeek = countKPIs.getEvtPerWeek;
 exports.getEvtPerQuarter = countKPIs.getEvtPerQuarter;

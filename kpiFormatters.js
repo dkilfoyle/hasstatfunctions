@@ -1,6 +1,7 @@
 const { percent } = require("./stats");
 
 function kpiToColor(metTarget, denominator, target, compare) {
+  if (denominator == 0) return "kpiNone";
   var prop = metTarget / denominator;
   var tcolor = "kpiNone";
   if (compare === ">") {
@@ -24,6 +25,7 @@ function kpiToColor(metTarget, denominator, target, compare) {
 }
 
 function kpiToHTML(metTarget, denominator, target, compare) {
+  if (denominator == 0) return 'black';
   var prop = metTarget / denominator;
   var tcolor = 'black'
   if (compare === '>') {

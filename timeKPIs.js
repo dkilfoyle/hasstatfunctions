@@ -9,7 +9,7 @@ const {
   isMetro,
   isNonMetro
 } = require("./filters");
-const { kpiToHTML, timeToHTML } = require("./kpiFormatters");
+const { kpiToHTML, timeToHTML, kpiToColor } = require("./kpiFormatters");
 const { differenceInMinutes } = require("date-fns");
 const btoa = require("btoa");
 

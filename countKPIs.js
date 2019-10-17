@@ -15,7 +15,7 @@ const {
   isTICI2B3
 } = require("./filters");
 const { kpiTimeframes } = require("./timeKPIs");
-const { kpiToHTML } = require("./kpiFormatters");
+const { kpiToHTML, kpiToColor } = require("./kpiFormatters");
 const btoa = require("btoa");
 
 function countKPI(config) {

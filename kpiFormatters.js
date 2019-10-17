@@ -29,7 +29,7 @@ function kpiToHTML(metTarget, denominator, target, compare) {
   if (compare === '>') {
     if (prop > target) {
       tcolor = 'green'
-    } else if (time > 0.8 * target) {
+    } else if (prop > 0.8 * target) {
       tcolor = 'darkorange'
     } else {
       tcolor = 'red'
@@ -37,7 +37,7 @@ function kpiToHTML(metTarget, denominator, target, compare) {
   } else {
     if (prop < target) {
       tcolor = 'green'
-    } else if (time < 1.2 * target) {
+    } else if (prop < 1.2 * target) {
       tcolor = 'darkorange'
     } else {
       tcolor = 'red'

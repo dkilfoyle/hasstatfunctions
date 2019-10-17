@@ -34,6 +34,9 @@ function countKPI(config) {
   if (config.htmlFormatter === undefined) {
     config.htmlFormatter = numerator => numerator.toString();
   }
+  if (config.colorFn === undefined) {
+    config.colorFn = () => "black"
+  }
 
   var kpis = config.timeframes.map(curTimeframe => {
     // only keep patients within the selected timeframe
@@ -137,6 +140,8 @@ function mimicsKPI(patients) {
     eventFn: isMimic,
     filterFn: isDiversion,
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.25, "<"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.25, "<")
   });
@@ -148,6 +153,8 @@ function interventionsKPI(patients) {
     eventFn: isIntervention,
     filterFn: isDiversion,
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.2, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.2, ">")
   });
@@ -159,6 +166,8 @@ function ticiKPI(patients) {
     eventFn: isTICI2B3,
     filterFn: pt => pt.PSI && pt.PSIResult,
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.2, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.2, ">")
   });
@@ -170,6 +179,8 @@ function ivtsichKPI(patients) {
     eventFn: pt => pt.FollowupCT === "sICH",
     filterFn: pt => pt.ThrombolysedACH,
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.06, "<"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.06, "<")
   });
@@ -351,7 +362,7 @@ function weeklyReport(patients) {
     .map(x => colors[Math.round(percentRank(div, x) * 10)])
     .reverse();
 
-  var config = function(x) {
+  var config = function (x) {
     return {
       type: "sparkline",
       data: {

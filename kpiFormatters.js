@@ -1,27 +1,33 @@
 const { percent } = require("./stats");
 
-function kpiToHTML(metTarget, denominator, target, compare) {
+function kpiToColor(metTarget, denominator, target, compare) {
   var prop = metTarget / denominator;
-  var percentTxt = percent(prop);
-  var tcolor = "black";
+  var tcolor = "kpiNone";
   if (compare === ">") {
     if (prop > target) {
-      tcolor = "green";
+      tcolor = "kpiSuccess";
     } else if (prop > 0.8 * target) {
-      tcolor = "darkorange";
+      tcolor = "kpiWarning";
     } else {
-      tcolor = "red";
+      tcolor = "kpiDanger";
     }
   } else {
     if (prop < target) {
-      tcolor = "green";
+      tcolor = "kpiSuccess";
     } else if (prop < 1.2 * target) {
-      tcolor = "darkorange";
+      tcolor = "kpiWarning";
     } else {
-      tcolor = "red";
+      tcolor = "kpiDanger";
     }
   }
-  return `<span style="color:${tcolor};font-size:15px">${percentTxt} (${metTarget}/${denominator})</span>`;
+  return tcolor;
+}
+
+function kpiToHTML(metTarget, denominator, target, compare) {
+  var bcolor = kpiToColor(metTarget, denominator, target, compare)
+  var percentTxt = percent(metTarget / denominator)
+  return `<span style="color:${bcolor};font-size:15px">${percentTxt} (${metTarget}/${denominator})</span>`;
+  // return `<span class="kpiBadge ${bcolor}">${percentTxt}</span><span class="kpiFraction">(${metTarget}/${denominator})</span>`;
 }
 
 function timeToHTML(time) {
@@ -48,5 +54,6 @@ function timeToHTML(time) {
 
 module.exports = {
   kpiToHTML,
+  kpiToColor,
   timeToHTML
 };

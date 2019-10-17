@@ -600,5 +600,8 @@ module.exports = {
   ivtsichKPI,
   getEvtPerWeek,
   getEvtPerQuarter,
-  quarterCharts
+  quarterCharts,
+  countPSIChart,
+  countIVTChart,
+  countDiversionChart
 };

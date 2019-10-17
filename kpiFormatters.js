@@ -24,9 +24,26 @@ function kpiToColor(metTarget, denominator, target, compare) {
 }
 
 function kpiToHTML(metTarget, denominator, target, compare) {
-  var bcolor = kpiToColor(metTarget, denominator, target, compare)
+  var tcolor = 'black'
+  if (compare === '>') {
+    if (time > target) {
+      tcolor = 'green'
+    } else if (time > 0.8 * target) {
+      tcolor = 'darkorange'
+    } else {
+      tcolor = 'red'
+    }
+  } else {
+    if (time < target) {
+      tcolor = 'green'
+    } else if (time < 1.2 * target) {
+      tcolor = 'darkorange'
+    } else {
+      tcolor = 'red'
+    }
+  }
   var percentTxt = percent(metTarget / denominator)
-  return `<span style="color:${bcolor};font-size:15px">${percentTxt} (${metTarget}/${denominator})</span>`;
+  return `<span style="color:${tcolor};font-size:15px">${percentTxt} (${metTarget}/${denominator})</span>`;
   // return `<span class="kpiBadge ${bcolor}">${percentTxt}</span><span class="kpiFraction">(${metTarget}/${denominator})</span>`;
 }
 

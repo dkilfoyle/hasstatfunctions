@@ -61,11 +61,12 @@ function countKPI(config) {
       n: numerator,
       denominator1,
       denominator2,
-      prop1: numerator / denominator1,
-      prop2: numerator / denominator2,
+      prop1: +(numerator / denominator1).toFixed(4),
+      prop2: +(numerator / denominator2).toFixed(4),
       percent1: percent(numerator / denominator1),
       percent2: percent(numerator / denominator2),
       // patients: filterPatients.map(pt => pt.ArrivalType),
+      color: config.colorFn(numerator, denominator2),
       html: config.htmlFormatter(numerator, denominator2)
     };
   });

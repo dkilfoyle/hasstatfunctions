@@ -71,9 +71,10 @@ function timeKPI(config) {
       metTarget: numerator,
       denominator: denominator,
       median: medianTimeDiff,
-      prop: numerator / denominator,
+      prop: +(numerator / denominator).toFixed(4),
       percent: percent(numerator / denominator),
       percentn: Math.round((numerator / denominator) * 100),
+      color: config.colorFn(numerator, denominator),
       html: config.htmlFormatter(numerator, denominator),
       htmlTime: config.htmlTimeFormatter(medianTimeDiff)
     };
@@ -113,6 +114,8 @@ function door2CT(patients) {
     t2: "CTTime",
     threshold: 25,
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 25, "<")
@@ -126,6 +129,8 @@ function door2IVT(patients) {
     t2: "ThrombolysisTime",
     threshold: 60,
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 60, "<")
@@ -139,6 +144,8 @@ function door2Groin(patients) {
     t2: "PSITime",
     threshold: 90,
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 90, "<")
@@ -153,6 +160,8 @@ function door2GroinDirect(patients) {
     threshold: 90,
     filters: [pt => pt.ArrivalType !== "PSI Transfer"],
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 90, "<")
@@ -167,6 +176,8 @@ function door2GroinTransfer(patients) {
     threshold: 40,
     filters: [pt => pt.ArrivalType === "PSI Transfer"],
     timeframes: kpiTimeframes(),
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 40, "<")
@@ -182,6 +193,8 @@ function door2Repatriation(patients) {
     units: "hrs",
     timeframes: kpiTimeframes(),
     filters: [isRepatriation],
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 24 * 60, "<")
@@ -197,6 +210,8 @@ function door2RepatriationI(patients) {
     units: "hrs",
     timeframes: kpiTimeframes(),
     filters: [isRepatriation, isIntervention],
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 24 * 60, "<")
@@ -212,6 +227,8 @@ function door2RepatriationIM(patients) {
     units: "hrs",
     timeframes: kpiTimeframes(),
     filters: [isRepatriation, isIntervention, isMetro],
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 24 * 60, "<")
@@ -227,6 +244,8 @@ function door2RepatriationIR(patients) {
     units: "hrs",
     timeframes: kpiTimeframes(),
     filters: [isRepatriation, isIntervention, isNonMetro],
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 24 * 60, "<")
@@ -242,6 +261,8 @@ function door2RepatriationNoI(patients) {
     units: "hrs",
     timeframes: kpiTimeframes(),
     filters: [isRepatriation, isNotIntervention],
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
     htmlFormatter: (numerator, denominator) =>
       kpiToHTML(numerator, denominator, 0.8, ">"),
     htmlTimeFormatter: time => timeToHTML(time, 6 * 60, "<")

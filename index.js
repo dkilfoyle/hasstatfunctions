@@ -17,6 +17,7 @@ exports.door2Groin = timeKPIs.door2Groin;
 exports.door2GroinDirect = timeKPIs.door2GroinDirect;
 exports.door2GroinTransfer = timeKPIs.door2GroinTransfer;
 exports.door2IVT = timeKPIs.door2IVT;
+exports.door2IVT4y = timeKPIs.door2IVT4y;
 exports.door2Repatriation = timeKPIs.door2Repatriation;
 exports.door2RepatriationI = timeKPIs.door2RepatriationI;
 exports.door2RepatriationIR = timeKPIs.door2RepatriationIR;

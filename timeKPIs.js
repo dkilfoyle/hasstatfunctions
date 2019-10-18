@@ -137,6 +137,23 @@ function door2IVT(patients) {
   });
 }
 
+function door2IVT4y(patients) {
+  return timeKPI({
+    patients: patients,
+    t1: "EDArrivalTime",
+    t2: "ThrombolysisTime",
+    threshold: 60,
+    timeframes: [{
+      period: "fiscalQuarters",
+      steps: 16
+    }],
+    colorFn: (numerator, denominator) =>
+      kpiToColor(numerator, denominator, 0.8, ">"),
+    htmlFormatter: (numerator, denominator) => "",
+    htmlTimeFormatter: time => ""
+  });
+}
+
 function door2Groin(patients) {
   return timeKPI({
     patients: patients,
@@ -328,5 +345,6 @@ module.exports = {
   door2RepatriationNoI,
   door2RepatriationIR,
   door2RepatriationIM,
-  quarterReport
+  quarterReport,
+  door2IVT4y
 };

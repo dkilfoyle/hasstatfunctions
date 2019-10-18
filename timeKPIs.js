@@ -147,11 +147,7 @@ function door2IVT4y(patients) {
       period: "fiscalQuarters",
       steps: 16
     }],
-    colorFn: (numerator, denominator) =>
-      kpiToColor(numerator, denominator, 0.8, ">"),
-    htmlFormatter: (numerator, denominator) => "",
-    htmlTimeFormatter: time => ""
-  });
+  }).map(x => x.median);
 }
 
 function door2Groin(patients) {

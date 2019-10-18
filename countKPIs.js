@@ -219,7 +219,7 @@ function countPSIChart(patients) {
   var dhbs = ["ADHB", "WDHB", "CMDHB", "NonMetro"];
   var counts = {};
   var quarters = [];
-  for (var i = 1; i < 13; i++) {
+  for (var i = 12; i > 0; i--) {
     quarters.push({
       period: "fiscalQuarters",
       steps: -i
@@ -254,7 +254,7 @@ function countIVTChart(patients) {
   var dhbs = ["Any", "ADHB", "WDHB", "CMDHB"];
   var counts = {};
   var quarters = [];
-  for (var i = 1; i < 13; i++) {
+  for (var i = 12; i > 0; i--) {
     quarters.push({
       period: "fiscalQuarters",
       steps: -i
@@ -275,7 +275,7 @@ function countDiversionChart(patients) {
   var hosps = ["NSH", "WTK", "MMH"];
   var counts = {};
   var quarters = [];
-  for (var i = 1; i < 13; i++) {
+  for (var i = 12; i > 0; i--) {
     quarters.push({
       period: "fiscalQuarters",
       steps: -i

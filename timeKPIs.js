@@ -141,15 +141,19 @@ function door2IVT(patients) {
 }
 
 function door2IVT4y(patients) {
+  var quarters = []
+  for (var i = 12; i > 0; i--) {
+    quarters.push({
+      period: "fiscalQuarters",
+      steps: -i
+    });
+  }
   return timeKPI({
     patients: patients,
     t1: "EDArrivalTime",
     t2: "ThrombolysisTime",
     threshold: 60,
-    timeframes: [{
-      period: "fiscalQuarters",
-      steps: 16
-    }],
+    timeframes: quarters
   }).map(x => x.median);
 }
 

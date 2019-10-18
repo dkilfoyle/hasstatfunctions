@@ -24,6 +24,9 @@ function timeKPI(config) {
     console.error("TimeKPI: invalid config", config);
     return [];
   }
+  if (config.colorFn === undefined) {
+    config.colorFn = () => "black"
+  }
   if (config.htmlFormatter === undefined) {
     config.htmlFormatter = numerator => numerator.toString();
   }

@@ -98,6 +98,31 @@ function countTimeframes() {
   ];
 }
 
+function dhbTimeframes() {
+  return [
+    {
+      period: "quarters",
+      steps: -1
+    },
+    {
+      period: "months",
+      steps: 0
+    },
+    {
+      period: "months",
+      steps: -1
+    },
+    {
+      period: "calendarYears",
+      steps: 0
+    },
+    {
+      period: "calendarYTD",
+      steps: -1
+    }
+  ];
+}
+
 function getEvtPerWeek(patients, eventFn, steps) {
   var timeframes = [];
   for (var i = 0; i < steps; i++) {
@@ -210,6 +235,26 @@ function countPSI(patients) {
       eventFn: pt => pt.PSI,
       filterFn: isDHB(dhb),
       timeframes: countTimeframes()
+    }).map(kpi => kpi.n);
+  });
+  return counts;
+}
+
+function countPSIDHBs(patients) {
+  var dhbs = ["ADHB", "WDHB", "CMDHB", "Metro", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "NonMetro", "Any"];
+  for (var i = 0; i < 3; i++) {
+    timeframes.push({
+      period: "fiscalYears",
+      steps: -i
+    });
+  }
+  var counts = {};
+  dhbs.forEach(dhb => {
+    counts[dhb] = countKPI({
+      patients: patients,
+      eventFn: pt => pt.PSI,
+      filterFn: isDHB(dhb),
+      timeframes: timeframes
     }).map(kpi => kpi.n);
   });
   return counts;
@@ -603,5 +648,6 @@ module.exports = {
   quarterCharts,
   countPSIChart,
   countIVTChart,
-  countDiversionChart
+  countDiversionChart,
+  countPSIDHBs
 };

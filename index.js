@@ -40,6 +40,7 @@ exports.countDiversion = countKPIs.countDiversion;
 exports.countOvernight = countKPIs.countOvernight;
 exports.countIVT = countKPIs.countIVT;
 exports.countPSI = countKPIs.countPSI;
+exports.countPSIDHBs = countKPIs.countPSIDHBs;
 exports.countMimic = countKPIs.countMimic;
 
 exports.countPSIChart = countKPIs.countPSIChart;

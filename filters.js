@@ -45,7 +45,7 @@ function isDHB(dhb) {
         "Gisborne",
         "Taranaki",
         "Other"
-      ];
+      ]; break;
       default: hospitals = ["Other"]
     }
     return pt.OriginHospital && hospitals.includes(pt.OriginHospital);

@@ -98,31 +98,6 @@ function countTimeframes() {
   ];
 }
 
-function dhbTimeframes() {
-  return [
-    {
-      period: "quarters",
-      steps: -1
-    },
-    {
-      period: "months",
-      steps: 0
-    },
-    {
-      period: "months",
-      steps: -1
-    },
-    {
-      period: "calendarYears",
-      steps: 0
-    },
-    {
-      period: "calendarYTD",
-      steps: -1
-    }
-  ];
-}
-
 function getEvtPerWeek(patients, eventFn, steps) {
   var timeframes = [];
   for (var i = 0; i < steps; i++) {
@@ -241,7 +216,7 @@ function countPSI(patients) {
 }
 
 function countPSIDHBs(patients) {
-  var dhbs = ["ADHB", "WDHB", "CMDHB", "Metro", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "NonMetro", "Any"];
+  var dhbs = ["ADHB", "WDHB", "CMDHB", "Metro", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "Other", "NonMetro", "Any"];
   var timeframes = [];
   for (var i = 0; i < 4; i++) {
     timeframes.push({
@@ -259,6 +234,22 @@ function countPSIDHBs(patients) {
     }).map(kpi => kpi.n);
   });
   return counts;
+}
+
+function countPSIDHBsProp(patients) {
+  var dhbs = ["ADHB", "WDHB", "CMDHB", "Metro", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "Other", "NonMetro", "Any"];
+  var timeframes = [{ period: "fiscalYears", steps: -1 }];
+  var counts = {};
+  dhbs.forEach(dhb => {
+    counts[dhb] = countKPI({
+      patients: patients,
+      eventFn: pt => pt.PSI,
+      filterFn: isDHB(dhb),
+      timeframes: timeframes
+    }).map(kpi => kpi.n);
+  });
+  var max = Math.max(...counts);
+  return counts.map(x => Math.round(x / max * 100));
 }
 
 function countPSIChart(patients) {
@@ -650,5 +641,6 @@ module.exports = {
   countPSIChart,
   countIVTChart,
   countDiversionChart,
-  countPSIDHBs
+  countPSIDHBs,
+  countPSIDHBsProp
 };

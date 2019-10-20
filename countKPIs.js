@@ -242,6 +242,7 @@ function countPSI(patients) {
 
 function countPSIDHBs(patients) {
   var dhbs = ["ADHB", "WDHB", "CMDHB", "Metro", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "NonMetro", "Any"];
+  var timeframes = [];
   for (var i = 0; i < 3; i++) {
     timeframes.push({
       period: "fiscalYears",

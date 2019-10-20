@@ -237,7 +237,7 @@ function countPSIDHBs(patients) {
 }
 
 function countPSIDHBsProp(patients) {
-  var dhbs = ["ADHB", "WDHB", "CMDHB", "Metro", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "Other", "NonMetro", "Any"];
+  var dhbs = ["ADHB", "WDHB", "CMDHB", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "Other"];
   var timeframes = [{ period: "fiscalYears", steps: -1 }];
   var counts = {};
   dhbs.forEach(dhb => {
@@ -248,8 +248,9 @@ function countPSIDHBsProp(patients) {
       timeframes: timeframes
     }).map(kpi => kpi.n);
   });
-  var max = Math.max(...counts);
-  return counts.map(x => Math.round(x / max * 100));
+  var counts2 = Object.values(counts)
+  var max = Math.max(...counts2);
+  return counts2.map(x => Math.round(x / max * 100));
 }
 
 function countPSIChart(patients) {

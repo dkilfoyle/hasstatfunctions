@@ -240,7 +240,7 @@ function door2RepatriationDHBs(patients) {
       filters: [isRepatriation]
     });
   })
-  return dhbs
+  return repats
 }
 
 function door2RepatriationI(patients) {

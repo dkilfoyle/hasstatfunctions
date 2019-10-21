@@ -217,13 +217,20 @@ function countPSI(patients) {
 
 function countPSIDHBs(patients) {
   var dhbs = ["ADHB", "WDHB", "CMDHB", "Metro", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "Other", "NonMetro", "Any"];
-  var timeframes = [];
-  for (var i = 0; i < 4; i++) {
-    timeframes.push({
+  var timeframes = [
+    {
       period: "fiscalYears",
-      steps: -i
-    });
-  }
+      steps: 0
+    },
+    {
+      period: "fiscalYears",
+      steps: -1
+    },
+    {
+      period: "fiscalQuarters",
+      steps: -1
+    }
+  ];
   var counts = {};
   dhbs.forEach(dhb => {
     counts[dhb] = countKPI({

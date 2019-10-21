@@ -70,17 +70,21 @@ function timeKPI(config) {
       medianTimeDiff = Math.round(medianTimeDiff / 60);
     }
 
-    return {
+    var result = {
       metTarget: numerator,
       denominator: denominator,
       median: medianTimeDiff,
       prop: +(numerator / denominator).toFixed(4),
       percent: percent(numerator / denominator),
-      percentn: Math.round((numerator / denominator) * 100),
-      color: config.colorFn(numerator, denominator),
-      html: config.htmlFormatter(numerator, denominator),
-      htmlTime: config.htmlTimeFormatter(medianTimeDiff)
-    };
+      percentn: Math.round((numerator / denominator) * 100)
+    }
+
+    if (config.colorFn) result.color = config.colorFn(numerator, denominator)
+    if (config.htmlFormatter) result.color = config.htmlFormatter(numerator, denominator)
+    if (config.htmlTime) result.color = config.htmlTimeFormatter(numerator, denominator)
+
+    return result;
+
   });
   return kpis;
 }
@@ -221,6 +225,24 @@ function door2Repatriation(patients) {
   });
 }
 
+function door2RepatriationDHBs(patients) {
+  var dhbs = ["WDHB", "CMDHB", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "Other"];
+  var timeframes = [{ period: "fiscalQuarters", steps: -1 }];
+  var repats = {};
+  dhbs.forEach(dhb => {
+    repats[dhb] = timeKPI({
+      patients: patients,
+      t1: "EDArrivalTime",
+      t2: "WardDischargeTime",
+      threshold: 60 * 24,
+      units: "hrs",
+      timeframes: timeframes,
+      filters: [isRepatriation]
+    });
+  })
+  return dhbs
+}
+
 function door2RepatriationI(patients) {
   return timeKPI({
     patients: patients,
@@ -344,6 +366,7 @@ module.exports = {
   door2GroinTransfer,
   door2IVT,
   door2Repatriation,
+  door2RepatriationDHBs,
   door2RepatriationI,
   door2RepatriationNoI,
   door2RepatriationIR,

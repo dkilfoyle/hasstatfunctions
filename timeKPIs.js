@@ -77,7 +77,7 @@ function timeKPI(config) {
       median: medianTimeDiff,
       prop: +(numerator / denominator).toFixed(4),
       percent: percent(numerator / denominator),
-      percentn: Math.round((numerator / denominator) * 100),
+      percentn: Math.round((numerator / denominator) * 100) || 0,
       color: config.colorFn(numerator, denominator),
       html: config.htmlFormatter(numerator, denominator),
       htmlTime: config.htmlTimeFormatter(medianTimeDiff)

@@ -78,9 +78,9 @@ function timeKPI(config) {
       prop: +(numerator / denominator).toFixed(4),
       percent: percent(numerator / denominator),
       percentn: Math.round((numerator / denominator) * 100),
-      colorFn: config.colorFn(numerator, denominator),
-      htmlFormatter: config.htmlFormatter(numerator, denominator),
-      htmlTimeFormatter: config.htmlTimeFormatter(numerator, denominator)
+      color: config.colorFn(numerator, denominator),
+      html: config.htmlFormatter(numerator, denominator),
+      htmlTime: config.htmlTimeFormatter(medianTimeDiff)
     };
   });
   return kpis;

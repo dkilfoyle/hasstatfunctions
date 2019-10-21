@@ -71,21 +71,17 @@ function timeKPI(config) {
       medianTimeDiff = Math.round(medianTimeDiff / 60);
     }
 
-    var result = {
+    return {
       metTarget: numerator,
       denominator: denominator,
       median: medianTimeDiff,
       prop: +(numerator / denominator).toFixed(4),
       percent: percent(numerator / denominator),
-      percentn: Math.round((numerator / denominator) * 100)
-    }
-
-    if (config.colorFn) result.color = config.colorFn(numerator, denominator)
-    if (config.htmlFormatter) result.color = config.htmlFormatter(numerator, denominator)
-    if (config.htmlTime) result.color = config.htmlTimeFormatter(numerator, denominator)
-
-    return result;
-
+      percentn: Math.round((numerator / denominator) * 100),
+      colorFn: config.colorFn(numerator, denominator),
+      htmlFormatter: config.htmlFormatter(numerator, denominator),
+      htmlTimeFormatter: config.htmlTimeFormatter(numerator, denominator)
+    };
   });
   return kpis;
 }
@@ -228,7 +224,7 @@ function door2Repatriation(patients) {
 
 function door2RepatriationDHBs(patients) {
   var dhbs = ["WDHB", "CMDHB", "Northland", "Waikato", "Lakes", "BOP", "Tairawhiti", "Taranaki", "Other"];
-  var timeframes = [{ period: "fiscalQuarters", steps: -1 }];
+  var timeframes = [{ period: "fiscalYears", steps: -1 }];
   var repats = {};
   dhbs.forEach(dhb => {
     repats[dhb] = timeKPI({

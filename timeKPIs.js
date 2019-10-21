@@ -7,7 +7,8 @@ const {
   isNotIntervention,
   isRepatriation,
   isMetro,
-  isNonMetro
+  isNonMetro,
+  isDHB
 } = require("./filters");
 const { kpiToHTML, timeToHTML, kpiToColor } = require("./kpiFormatters");
 const { differenceInMinutes } = require("date-fns");
@@ -237,7 +238,7 @@ function door2RepatriationDHBs(patients) {
       threshold: 60 * 24,
       units: "hrs",
       timeframes: timeframes,
-      filters: [isRepatriation]
+      filters: [isRepatriation, isDHB(dhb)]
     });
   })
   return repats

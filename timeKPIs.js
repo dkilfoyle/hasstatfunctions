@@ -234,7 +234,9 @@ function door2RepatriationDHBs(patients) {
       threshold: 60 * 24,
       units: "hrs",
       timeframes: timeframes,
-      filters: [isRepatriation, isDHB(dhb)]
+      filters: [isRepatriation, isDHB(dhb)],
+      colorFn: (numerator, denominator) =>
+        kpiToColor(numerator, denominator, 0.8, ">"),
     });
   })
   return repats

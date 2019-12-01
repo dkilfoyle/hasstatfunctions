@@ -403,6 +403,7 @@ function weeklyReportData(patients) {
     .reverse();
 
   var div = getEvtPerWeek(patients, pt => pt.ArrivalType === "Diversion", 52);
+  console.log(div);
   var divcolors = div
     .slice(0, 12)
     .map(x => colors[Math.round(percentRank(div, x) * 10)])

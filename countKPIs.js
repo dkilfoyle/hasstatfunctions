@@ -393,23 +393,21 @@ function weeklyReportData(patients) {
   var psi = getEvtPerWeek(patients, pt => pt.PSI, 52);
   var psicolors = psi
     .slice(0, 12)
-    .map(x => colors[Math.round(percentRank(psi, x) * 10)])
+    .map(x => colors[Math.round(percentRank(psi, x) * 9)])
     .reverse();
 
   var ivt = getEvtPerWeek(patients, pt => pt.ThrombolysedACH, 52);
   var ivtcolors = ivt
     .slice(0, 12)
-    .map(x => colors[Math.round(percentRank(ivt, x) * 10)])
+    .map(x => colors[Math.round(percentRank(ivt, x) * 9)])
     .reverse();
 
   var div = getEvtPerWeek(patients, pt => pt.ArrivalType === "Diversion", 52);
   console.log(div);
   var divcolors = div
     .slice(0, 12)
-    .map(x => colors[Math.round(percentRank(div, x) * 10)])
+    .map(x => colors[Math.round(percentRank(div, x) * 9)])
     .reverse();
-
-  console.log(divcolors);
 
   return {
     psi: {

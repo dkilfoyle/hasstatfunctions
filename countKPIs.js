@@ -408,6 +408,8 @@ function weeklyReportData(patients) {
     .map(x => colors[Math.round(percentRank(div, x) * 10)])
     .reverse();
 
+  console.log(divcolors);
+
   return {
     psi: {
       eventsPerWeek: psi.slice(0, 12),
